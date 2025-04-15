@@ -87,3 +87,24 @@ p <- ggplot(transactions, aes(x = Amount)) +
   theme_minimal()
 
 ggplotly(p)
+
+
+# 
+
+# Cargar dplyr
+library(dplyr)
+
+# Calcular la media y desviación estándar del monto
+media_monto <- mean(bank_transactions$Amount, na.rm = TRUE)
+desv_monto <- sd(bank_transactions$Amount, na.rm = TRUE)
+
+# Definir el umbral (1.5 veces la desviación estándar sobre la media)
+umbral <- media_monto + 1.5 * desv_monto
+
+# Crear columna para marcar transacciones fraudulentas
+bank_transactions <- bank_transactions %>%
+  mutate(Fraud = Amount > umbral)
+
+# Filtrar transacciones fraudulentas y no fraudulentas
+fraudulentas <- bank_transactions %>% filter(Fraud == TRUE)
+no_fraudulentas <- bank_transactions %>% filter(Fraud == FALSE)
