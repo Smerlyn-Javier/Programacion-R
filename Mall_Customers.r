@@ -114,3 +114,29 @@ ggplot(clientes_filtrados, aes(x = `Annual_Income`, y = `Spending_Score`, color 
        y = "Puntuación de Gasto") +
   theme_minimal() +
   scale_color_brewer(palette = "Set1")
+
+
+
+#   Estrategias
+
+# 1. Gráfico de Barras con Anotaciones (ideal para mostrar estrategias)
+
+library(ggplot2)
+library(ggrepel)
+
+ggplot(estrategias, aes(x = reorder(Segmento, Cluster), y = 1, fill = factor(Cluster))) +
+  geom_col(width = 0.7, show.legend = FALSE) +
+  geom_label_repel(aes(label = Estrategia), 
+                  force = 10,
+                  size = 3,
+                  box.padding = 0.5,
+                  segment.color = NA) +
+  coord_flip() +
+  labs(title = "Estrategias por Segmento de Clientes",
+       subtitle = "Personalización según características del cluster",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(),
+        panel.grid = element_blank()) +
+  scale_fill_brewer(palette = "Set1")
