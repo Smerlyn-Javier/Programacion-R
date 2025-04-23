@@ -119,10 +119,12 @@ ui <- dashboardPage(
         }
         
         .sidebar-menu li:hover a {
+          font-weight: 500 !important;
           background-color: #F4F7FD !important;
         }
 
         .sidebar-menu li.active a {
+        font-weight: 900 !important;
           background-color: #F4F7FD !important;
           color: #282B34 !important;
         }
@@ -196,12 +198,19 @@ ui <- dashboardPage(
             padding: 10px;
             font-size: 10px;
             color: #ACB2C4;
+            position: absolute;
+            bottom: inherit !important;
+            top: 0;
             background-color: #F4F7FD !important;
         }
 
-        .col-sm-2{
+        .col-sm-2, .col-sm-4{
          border-right: 1px solid #DAE0F0;
         }
+        .col-sm-2:last-child, .col-sm-4:last-child{
+         border-right: 0px solid #DAE0F0;
+        }
+
 
         /* Colores personalizados */
         .bg-aqua {
@@ -217,6 +226,9 @@ ui <- dashboardPage(
           background-color: #ffffff !important;
         }
         .bg-light-blue {
+          background-color: #ffffff !important;
+        }
+        .bg-blue {
           background-color: #ffffff !important;
         }
 
@@ -299,25 +311,12 @@ status = "primary",
       solidHeader = FALSE,
       width = 6,
       plotlyOutput("dispersión_regresión", height = "400px")
-    ),
-         box(
-      title = "Campana de Gauss - Distribución de Edad",
-      status = "warning",
-      solidHeader = FALSE,
-      width = 12,
-      plotlyOutput("campana_gauss", height = "400px")
-    ),
-     box(
-      title = "Campana de Gauss - Quantity",
-      status = "success",
-      solidHeader = FALSE,
-      width = 12,
-      plotlyOutput("campana_gauss_quantity", height = "400px")
-     )
+    )
 
       )),
       tabItem(
   tabName = "ventas",
+  h2("Análisis de Ventas"),
   fluidRow(
     box(title = "Ventas Totales por Mes", width = 12, status = "primary", solidHeader = FALSE,
         plotlyOutput("ventas_por_mes", height = "300px"))
@@ -327,22 +326,48 @@ status = "primary",
         plotlyOutput("top_productos", height = "300px")),
     box(title = "Distribución de Ventas por Categoría", width = 6, status = "warning", solidHeader = FALSE,
         plotlyOutput("pie_categorias", height = "300px"))
+  ),
+  fluidRow(
+       box(
+      title = "Campana de Gauss - Quantity",
+      status = "success",
+      solidHeader = FALSE,
+      width = 12,
+      plotlyOutput("campana_gauss_quantity", height = "400px")
+     )
   )
 ),
 
       tabItem(tabName = "clientes", h2("Análisis de Clientes"),
               fluidRow(
+                box(title = "Pirámide de Audiencia por Edad y Género", width = 8, plotlyOutput("audiencia_piramide")),
+                box(title = "Perfil Promedio por Género", width = 4, plotOutput("audiencia_radar"))
+              ),
+              fluidRow(
                 box(title = "Distribución de Clientes por Categoría y Género", width = 12, plotlyOutput("audiencia_barras")),
-                box(title = "Pirámide de Audiencia por Edad y Género", width = 12, plotlyOutput("audiencia_piramide")),
-                box(title = "Perfil Promedio por Género", width = 12, plotOutput("audiencia_radar"))
-              )),
+              ),
+              fluidRow(
+                         box(
+      title = "Campana de Gauss - Distribución de Edad",
+      status = "warning",
+      solidHeader = FALSE,
+      width = 12,
+      plotlyOutput("campana_gauss", height = "400px")
+    )
+              )
+
+
+              ),
       tabItem(
         tabName = "productos",
        h2("Productos Destacados"),
       fluidRow(
+        box(
+            width = 12,
     valueBoxOutput("total_productos"),
     valueBoxOutput("producto_top"),
     valueBoxOutput("producto_menos")
+        )
   ),
   fluidRow(
     box(title = "Top Productos Más Vendidos", width = 6, plotlyOutput("top_productos_plot")),
