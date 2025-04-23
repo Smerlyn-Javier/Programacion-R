@@ -143,8 +143,10 @@ ui <- dashboardPage(
           border: none !important;
           box-shadow: none !important;
           background-color: transparent !important;
-          margin-bottom: 0 !important;
-          border-radius: 0 !important;
+          margin-bottom: 32px !important;
+          padding: 32px !important;
+          border-radius: 16px !important;
+          border: 1px solid #DAE0F0 !important;
         }
         
         /* Eliminar estilos del header del box */
@@ -169,8 +171,54 @@ ui <- dashboardPage(
           padding: 15px 0 0 0 !important;
         }
 
+       /* Estilo para los valueBox */
+        .small-box {
+          border-radius: 16px;
+          box-shadow: none !important;
+        }
+        
+        /* Tamaño del texto del valor */
+        .small-box .inner h3 {
+          font-size: 28px !important;
+          font-weight: 600;
+          color:#282B34;
+        }
+        
+        /* Tamaño del texto del subtítulo */
+        .small-box .inner p {
+          font-size: 14px !important;
+          color: #ACB2C4;
+        }
+        
 
+        .small-box .icon-large{
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 10px;
+            color: #ACB2C4;
+            background-color: #F4F7FD !important;
+        }
 
+        .col-sm-2{
+         border-right: 1px solid #DAE0F0;
+        }
+
+        /* Colores personalizados */
+        .bg-aqua {
+          background-color: #ffffff !important;
+        }
+        .bg-green {
+        background-color: #ffffff !important;
+        }
+        .bg-yellow {
+          background-color: #ffffff !important;
+        }
+        .bg-red {
+          background-color: #ffffff !important;
+        }
+        .bg-light-blue {
+          background-color: #ffffff !important;
+        }
 
       "))
     ),
@@ -181,26 +229,30 @@ ui <- dashboardPage(
       p(style = "font-size: 16px; color:#ACB2C4;", "Hoy es", format(Sys.Date(), "%d %B %Y")),
       h3("Resumen Ejecutivo"),
     fluidRow(
+        box(
+status = "primary",
+          solidHeader = FALSE,
+          width = 12,
         valueBox(
           value = "89,935",
           subtitle = "Clientes Nuevos",
           icon = icon("user-plus"),
           color = "green",
-          width = 4
+          width = 2
         ),
         valueBox(
           value = "23,283",
           subtitle = "Total Conversiones",
           icon = icon("exchange-alt"),
           color = "aqua",
-          width = 4
+          width = 2
         ),
         valueBox(
           value = "124,854",
           subtitle = "Total Ventas",
           icon = icon("shopping-basket"),
           color = "green",
-          width = 4
+          width = 2
         ),
         
         valueBox(
@@ -208,21 +260,22 @@ ui <- dashboardPage(
           subtitle = "Ticket Promedio",
           icon = icon("receipt"),
           color = "light-blue",
-          width = 4
+          width = 2
         ),
         valueBox(
           value = "$124,854",
           subtitle = "CPC Total",
           icon = icon("money-bill-wave"),
           color = "red",
-          width = 4
+          width = 2
         ),
         valueBox(
           value = "46,827",
           subtitle = "Objetivos Alcanzados",
           icon = icon("bullseye"),
           color = "yellow",
-          width = 4
+          width = 2
+        )
         ),
         box(
           title = "Evolución de Ventas en el Tiempo",
