@@ -42,6 +42,19 @@ ventas_region <- data %>%
   summarise(Ventas = sum(`Total Amount`, na.rm = TRUE)) %>%
   left_join(regiones_coords, by = "Region")
 
+
+# Set Paleta de colores
+ggplot2::theme_set(
+  ggplot2::theme_minimal() +
+    ggplot2::theme(
+      panel.background = element_rect(fill = "white"),
+      plot.background = element_rect(fill = "#f9f9f9")
+    )
+)
+
+# Paleta global
+paleta_color <- c("#36CE95", "#184BD3")
+
 # UI
 ui <- dashboardPage(
   skin = "black",
@@ -535,7 +548,7 @@ output$campana_gauss <- renderPlotly({
 # Gráfico de Campana de Gauss para Cantidad Comprada
 output$campana_gauss_quantity <- renderPlotly({
   gg <- ggplot(data, aes(x = Quantity)) +
-    geom_histogram(aes(y = ..density..), bins = 20, fill = "#55efc4", alpha = 0.6, color = "black") +
+    geom_histogram(aes(y = ..density..), bins = 20, fill = "#36CE95", alpha = 0.6, color = "black") +
     stat_function(
       fun = dnorm,
       args = list(
@@ -563,7 +576,7 @@ output$top_productos <- renderPlotly({
     arrange(desc(Total_Quantity)) %>%
     top_n(10, Total_Quantity) %>%
     ggplot(aes(x = reorder(`Product Category`, Total_Quantity), y = Total_Quantity)) +
-    geom_bar(stat = "identity", fill = "#6c5ce7") +
+    geom_bar(stat = "identity", fill = "#184BD3") +
     coord_flip() +
     labs(title = "Top 10 Productos Más Vendidos", x = "Categoría", y = "Cantidad Vendida") +
     theme_minimal() -> p
